@@ -4,7 +4,7 @@ import Foundation
 
 /// Standard interval reference
 /// Not meant to replace `offset(_: Calendar.Component, _: Int)` to offset dates
-public extension Date {
+public extension Date {// {{{1
     /// Returns number of seconds per second
     public static let second: TimeInterval = 1
     /// Returns number of seconds per minute
@@ -15,41 +15,55 @@ public extension Date {
     public static let day: TimeInterval = 86400
     /// Returns number of seconds per standard week
     public static let week: TimeInterval = 604800
-}
+}// }}}1
 
 /// Utility for interval math
 /// Not meant to replace `offset(_: Calendar.Component, _: Int)` to offset dates
-public extension Int {
+public extension Int {// {{{1
     /// Returns number of seconds in n seconds
     public var seconds: TimeInterval { return TimeInterval(self) * Date.second }
+    public var second: TimeInterval { return TimeInterval(self) * Date.second }
     /// Returns number of seconds in n minutes
     public var minutes: TimeInterval { return TimeInterval(self) * Date.minute }
+    public var minute: TimeInterval { return TimeInterval(self) * Date.minute }
     /// Returns number of seconds in n hours
     public var hours: TimeInterval { return TimeInterval(self) * Date.hour }
+    public var hour: TimeInterval { return TimeInterval(self) * Date.hour }
     /// Returns number of seconds in n 24-hour days
     public var days: TimeInterval { return TimeInterval(self) * Date.day }
+    public var day: TimeInterval { return TimeInterval(self) * Date.day }
     /// Returns number of seconds in n standard weeks
     public var weeks: TimeInterval { return TimeInterval(self) * Date.week }
-}
+    public var week: TimeInterval { return TimeInterval(self) * Date.week }
+}// }}}1
 
 /// Calendar component offsets
-extension Date {
+extension Date {// {{{1
     /// Performs calendar math using date components as alternative
     /// to `offset(_: Calendar.Component, _: Int)`
     /// e.g.
     /// ```swift
     /// print((Date() + DateComponents.days(3) + DateComponents.hours(1)).fullString)
     /// ```
-    public static func +(lhs: Date, rhs: DateComponents) -> Date {
+    public static func + (lhs: Date, rhs: DateComponents) -> Date {
         return Date.sharedCalendar.date(byAdding: rhs, to: lhs)! // yes force unwrap. sue me.
     }
-}
+
+    public static func - (lhs: Date, rhs: DateComponents) -> Date {
+        let rhs = DateComponents(from: 0 - rhs.timeInterval)
+        return Date.sharedCalendar.date(byAdding: rhs, to: lhs)! // yes force unwrap. sue me.
+    }
+
+    public static func - (date: Date, otherDate: Date) -> TimeInterval {
+        return date.timeIntervalSince(otherDate)
+    }
+}// }}}1
 
 /// Component Math
-extension DateComponents {
-    
+extension DateComponents {// {{{1
+
     /// Add two date components together
-    public static func +(lhs: DateComponents, rhs: DateComponents) -> DateComponents {
+    public static func + (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
         var copy = DateComponents()
         for component in lhs.members.union(rhs.members) {
             var sum = 0
@@ -65,9 +79,9 @@ extension DateComponents {
         }
         return copy
     }
-    
+
     /// Subtract date components
-    public static func -(lhs: DateComponents, rhs: DateComponents) -> DateComponents {
+    public static func - (lhs: DateComponents, rhs: DateComponents) -> DateComponents {
         var copy = DateComponents()
         for component in lhs.members.union(rhs.members) {
             var result = 0
@@ -83,4 +97,5 @@ extension DateComponents {
         }
         return copy
     }
-}
+}// }}}1
+

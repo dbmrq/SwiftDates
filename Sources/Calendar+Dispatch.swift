@@ -15,10 +15,13 @@ extension Date {
 extension DateComponents {
     /// returns DispatchTime component offset from now
     public var dispatchTime: DispatchTime? {
-        guard let offsetDate = Calendar.autoupdatingCurrent.date(byAdding: self, to: Date()) else { return nil }
+        guard let offsetDate = Calendar.autoupdatingCurrent.date(byAdding: self, to: Date()) else {
+            return nil
+        }
         let seconds = offsetDate.timeIntervalSinceNow
         let delay = Double(NSEC_PER_SEC) * seconds
         let nSec = DispatchTime.now().rawValue + UInt64(delay)
         return DispatchTime(uptimeNanoseconds: nSec)
     }
 }
+

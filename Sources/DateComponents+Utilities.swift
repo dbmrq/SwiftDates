@@ -3,70 +3,96 @@ import Foundation
 // Acknowlegements in Date+Utilities.swift
 
 /// Components
-public extension Date {
+public extension Date {// {{{1
     /// Returns set of common date components
-    public static var commonComponents: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second]
-    
+    public static var commonComponents: Set<Calendar.Component> = [.year, .month, .day,
+                                                                   .hour, .minute, .second]
+
     /// Returns set of exhaustive date components
-    public static var allComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour, .minute, .second, .weekday, .weekdayOrdinal, .quarter, .weekOfMonth, .weekOfYear, .yearForWeekOfYear, .nanosecond, .calendar, .timeZone]
-    
+    public static var allComponents: Set<Calendar.Component> = [.era, .year, .month, .day, .hour,
+                                                                .minute, .second, .weekday,
+                                                                .weekdayOrdinal, .quarter,
+                                                                .weekOfMonth, .weekOfYear,
+                                                                .yearForWeekOfYear, .nanosecond,
+                                                                .calendar, .timeZone]
+
     /// Returns set of MDY date components
     public static var dateComponents: Set<Calendar.Component> = [.year, .month, .day]
-    
+
     /// Returns set of HMS
     public static var timeComponents: Set<Calendar.Component> = [.hour, .minute, .second, ]
-    
-    /// Returns set of MDYHMS components
-    public static var dateAndTimeComponents: Set<Calendar.Component> = [.hour, .minute, .second, .year, .month, .day]
-}
 
-/// Components from Dates 
-public extension Date {
+    /// Returns set of MDYHMS components
+    public static var dateAndTimeComponents: Set<Calendar.Component> = [.hour, .minute, .second,
+                                                                        .year, .month, .day]
+}// }}}1
+
+/// Components from Dates
+public extension Date {// {{{1
 
     /// Extracts of MDY components
     var dateComponents: DateComponents {
         return Date.sharedCalendar.dateComponents([.month, .day, .year], from: self)
     }
-    
+
     /// Extracts HMS components
     var timeComponents: DateComponents {
         return Date.sharedCalendar.dateComponents([.hour, .minute, .second], from: self)
     }
-    
+
     /// Extracts MDYHMS components
     var dateAndTimeComponents: DateComponents {
-        return Date.sharedCalendar.dateComponents([.month, .day, .year, .hour, .minute, .second], from: self)
+        return Date.sharedCalendar.dateComponents([.month, .day, .year, .hour, .minute, .second],
+                                                  from: self)
     }
-    
+
     /// Extracts common date components for date
-    public var components: DateComponents { return Date.sharedCalendar.dateComponents(Date.commonComponents, from: self) }
-    
+    public var components: DateComponents {
+        return Date.sharedCalendar.dateComponents(Date.commonComponents, from: self)
+    }
+
     /// Extracts all date components for date
-    public var allComponents: DateComponents { return Date.sharedCalendar.dateComponents(Date.allComponents, from: self) }
-}
+    public var allComponents: DateComponents {
+        return Date.sharedCalendar.dateComponents(Date.allComponents, from: self)
+    }
+}// }}}1
 
 
 /// Alternative offset approach that constructs date components for offset duty
 /// I find this more verbose, less readable, less functional but your mileage may vary
-extension DateComponents {
+extension DateComponents {// {{{1
     /// Returns components populated by n years
-    public static func years(_ count: Int) -> DateComponents { return DateComponents(year: count) }
+    public static func years(_ count: Int) -> DateComponents {
+        return DateComponents(year: count)
+    }
     /// Returns components populated by n months
-    public static func months(_ count: Int) -> DateComponents { return DateComponents(month: count) }
+    public static func months(_ count: Int) -> DateComponents {
+        return DateComponents(month: count)
+    }
     /// Returns components populated by n days
-    public static func days(_ count: Int) -> DateComponents { return DateComponents(day: count) }
+    public static func days(_ count: Int) -> DateComponents {
+        return DateComponents(day: count)
+    }
     /// Returns components populated by n hours
-    public static func hours(_ count: Int) -> DateComponents { return DateComponents(hour: count) }
+    public static func hours(_ count: Int) -> DateComponents {
+        return DateComponents(hour: count)
+    }
     /// Returns components populated by n minutes
-    public static func minutes(_ count: Int) -> DateComponents { return DateComponents(minute: count) }
+    public static func minutes(_ count: Int) -> DateComponents {
+        return DateComponents(minute: count)
+    }
     /// Returns components populated by n seconds
-    public static func seconds(_ count: Int) -> DateComponents { return DateComponents(second: count) }
+    public static func seconds(_ count: Int) -> DateComponents {
+        return DateComponents(second: count)
+    }
     /// Returns components populated by n nanoseconds
-    public static func nanoseconds(_ count: Int) -> DateComponents { return DateComponents(nanosecond: count) }
-}
+    public static func nanoseconds(_ count: Int) -> DateComponents {
+        return DateComponents(nanosecond: count)
+    }
+}// }}}1
 
 /// Date and Component Utility
-extension Date {
+extension Date {// {{{1
     /// Offset a date by n calendar components. Can be functionally chained
     /// For example:
     ///
@@ -98,14 +124,14 @@ extension Date {
         // case .timeZone: newComponent = DateComponents(timeZone: count)
         default: break
         }
-        
+
         // If offset is not possible, return unmodified date
         return Date.sharedCalendar.date(byAdding: newComponent, to: self) ?? self
     }
-}
+}// }}}1
 
 /// Subscripting
-extension DateComponents {
+extension DateComponents {// {{{1
     /// Introduces date component subscripting
     /// This does not take into account any built-in errors
     /// Where Int.max returned instead of nil
@@ -130,30 +156,30 @@ extension DateComponents {
         default: return nil
         }
     }
-}
+}// }}}1
 
 // For Frederic B
 // e.g. let dc = DateComponents(ti: 1.weeks + 1.days + 3.hours + 5.minutes + 4.seconds)
-extension DateComponents {
-    public init(ti: TimeInterval) {
-        var ti = floor(ti)
-        let seconds = lrint(ti.truncatingRemainder(dividingBy: 1.minutes))
-        ti -= seconds.seconds
-        let minutes = lrint(ti.truncatingRemainder(dividingBy: 1.hours) / 1.minutes)
-        ti -= minutes.minutes
-        let hours = lrint(ti.truncatingRemainder(dividingBy: 1.days) / 1.hours)
-        ti -= hours.hours
-        let days = lrint(ti / 1.days)
+extension DateComponents {// {{{1
+    public init(from interval: TimeInterval) {
+        var interval = floor(interval)
+        let seconds = lrint(interval.truncatingRemainder(dividingBy: 1.minutes))
+        interval -= seconds.seconds
+        let minutes = lrint(interval.truncatingRemainder(dividingBy: 1.hours) / 1.minutes)
+        interval -= minutes.minutes
+        let hours = lrint(interval.truncatingRemainder(dividingBy: 1.days) / 1.hours)
+        interval -= hours.hours
+        let days = lrint(interval / 1.days)
         self.init(day: days, hour: hours, minute: minutes, second: seconds)
     }
-}
+}// }}}1
 
 // Members
-extension DateComponents {
+extension DateComponents {// {{{1
     /// Returns the Int-bearing Calendar.Component members
     /// that make up the date
     public var members: Set<Calendar.Component> {
-        
+
         // See bug https://bugs.swift.org/browse/SR-2671
         // Error workaround where instead of returning nil
         // the values return Int.max
@@ -162,7 +188,7 @@ extension DateComponents {
                 else { return false }
             return true
         }
-        
+
         var components: Set<Calendar.Component> = []
         if validateMember(era) { components.insert(.era) }
         if validateMember(year) { components.insert(.year) }
@@ -182,10 +208,10 @@ extension DateComponents {
         // if validate(timeZone) { set.insert(.timeZone) }
         return components
     }
-}
+}// }}}1
 
 /// Standardization
-extension DateComponents {
+extension DateComponents {// {{{1
     /// Returns copy with zero-valued components removed
     public var trimmed: DateComponents {
         var copy = DateComponents()
@@ -199,36 +225,42 @@ extension DateComponents {
         }
         return copy
     }
-    
+
     /// Returns a copy with normalized (positive) values
     public var normalized: DateComponents {
         let referenceDate = Date(timeIntervalSinceReferenceDate: 0)
-        guard let adjusted = Date.sharedCalendar.date(byAdding: self, to: referenceDate) else { return self }
-        let copy = NSCalendar.current.dateComponents(Date.commonComponents, from: referenceDate, to: adjusted)
+        guard let adjusted = Date.sharedCalendar.date(byAdding: self, to: referenceDate) else {
+            return self
+        }
+        let copy = NSCalendar.current.dateComponents(Date.commonComponents,
+                                                     from: referenceDate, to: adjusted)
         return copy.trimmed
     }
-    
+
     /// Representation of the date components difference as a time interval
     public var timeInterval: TimeInterval {
         let referenceDate = Date(timeIntervalSinceReferenceDate: 0)
-        guard let adjusted = Date.sharedCalendar.date(byAdding: self, to: referenceDate) else { return 0 }
+        guard let adjusted = Date.sharedCalendar.date(byAdding: self, to: referenceDate) else {
+            return 0
+        }
         return adjusted.timeIntervalSinceReferenceDate
     }
-}
+}// }}}1
 
 /// Component Presentation
-extension DateComponents {
+extension DateComponents {// {{{1
     /// Component Presentation Styles
     public enum PresentationStyle { case standard, relative, approximate }
-    
+
     /// Returns a string representation of the date components
     /// ```
     /// let dc = DateComponents(minute: 7, second: 5)
-    /// print(dc.description(remaining: true, approximate: true)) // About 7 minutes, 5 seconds remaining
+    /// print(dc.description(remaining: true, approximate: true)) // About 7 min., 5 sec. remaining
     /// print(dc.description(style: .approximate)) // About 7 minutes from now
     /// print(dc.description(style: .relative)) // 7 minutes, 5 seconds from now
     /// print(dc.description(style: .standard)) // 7 minutes, 5 seconds
-    /// let units: [DateComponentsFormatter.UnitsStyle] = [.positional, .abbreviated, .short, .full, .spellOut]
+    /// let units: [DateComponentsFormatter.UnitsStyle] = [.positional, .abbreviated, .short,
+    ///                                                    .full, .spellOut]
     /// // 7:05, 7m 5s, 7 min, 5 sec, 7 minutes, 5 seconds, seven minutes, five seconds
     /// for unit in units {
     ///     print(dc.description(units: unit, style: .standard))
@@ -240,7 +272,7 @@ extension DateComponents {
         approximate: Bool = false,
         style: PresentationStyle = .standard
         ) -> String {
-        
+
         let formatter: DateComponentsFormatter = {
             $0.calendar = Date.sharedCalendar
             $0.unitsStyle = units
@@ -248,10 +280,10 @@ extension DateComponents {
             $0.includesApproximationPhrase = approximate
             return $0
         }(DateComponentsFormatter())
-        
+
         /// Caution: Use relative presentation only when all
         /// component signs are uniform. Use 'normalize' to
-        /// normalize the component.        
+        /// normalize the component.
         if style == .relative {
             guard var string = formatter.string(from: self) else { return "\(self)" }
             if let newTime = Date.sharedCalendar.date(byAdding: self, to: Date()) {
@@ -260,7 +292,7 @@ extension DateComponents {
             }
             return string
         }
-        
+
         if style == .approximate {
             let ti = abs(self.timeInterval)
             if ti < 3 { return "just now" }
@@ -279,9 +311,10 @@ extension DateComponents {
             }
             return string
         }
-        
+
         guard let string = formatter.string(from: self)
             else { return "\(self)" }
         return string
     }
-}
+}// }}}1
+

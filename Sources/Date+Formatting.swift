@@ -10,25 +10,41 @@ public extension Date {
         $0.locale = Locale(identifier: "en_US_POSIX")
         return $0 }(DateFormatter())
     /// Returns a short style date formatter
-    public static var shortDateFormatter: DateFormatter = { $0.dateStyle = .short; return $0 }(DateFormatter())
+    public static var shortDateFormatter: DateFormatter = {
+        $0.dateStyle = .short; return $0
+    }(DateFormatter())
     /// Returns a medium style date formatter
-    public static var mediumDateFormatter: DateFormatter = { $0.dateStyle = .medium; return $0 }(DateFormatter())
+    public static var mediumDateFormatter: DateFormatter = {
+        $0.dateStyle = .medium; return $0
+    }(DateFormatter())
     /// Returns a long style date formatter
-    public static var longDateFormatter: DateFormatter = { $0.dateStyle = .long; return $0 }(DateFormatter())
+    public static var longDateFormatter: DateFormatter = {
+        $0.dateStyle = .long; return $0
+    }(DateFormatter())
     /// Returns a full style date formatter
-    public static var fullDateFormatter: DateFormatter = { $0.dateStyle = .full; return $0 }(DateFormatter())
+    public static var fullDateFormatter: DateFormatter = {
+        $0.dateStyle = .full; return $0
+    }(DateFormatter())
     /// Returns a short style time formatter
-    public static var shortTimeFormatter: DateFormatter = { $0.timeStyle = .short; return $0 }(DateFormatter())
+    public static var shortTimeFormatter: DateFormatter = {
+        $0.timeStyle = .short; return $0
+    }(DateFormatter())
     /// Returns a medium style time formatter
-    public static var mediumTimeFormatter: DateFormatter = { $0.timeStyle = .medium; return $0 }(DateFormatter())
+    public static var mediumTimeFormatter: DateFormatter = {
+        $0.timeStyle = .medium; return $0
+    }(DateFormatter())
     /// Returns a long style time formatter
-    public static var longTimeFormatter: DateFormatter = { $0.timeStyle = .long; return $0 }(DateFormatter())
+    public static var longTimeFormatter: DateFormatter = {
+        $0.timeStyle = .long; return $0
+    }(DateFormatter())
     /// Returns a full style time formatter
-    public static var fullTimeFormatter: DateFormatter = { $0.timeStyle = .full; return $0 }(DateFormatter())
-    
+    public static var fullTimeFormatter: DateFormatter = {
+        $0.timeStyle = .full; return $0
+    }(DateFormatter())
+
     /// Represents date as ISO8601 string
     public var iso8601String: String { return Date.iso8601Formatter.string(from: self) }
-    
+
     /// Returns date components as short string
     public var shortDateString: String { return Date.shortDateFormatter.string(from:self) }
     /// Returns date components as medium string
@@ -37,7 +53,7 @@ public extension Date {
     public var longDateString: String { return Date.longDateFormatter.string(from:self) }
     /// Returns date components as full string
     public var fullDateString: String { return Date.fullDateFormatter.string(from:self) }
-    
+
     /// Returns time components as short string
     public var shortTimeString: String { return Date.shortTimeFormatter.string(from:self) }
     /// Returns time components as medium string
@@ -46,7 +62,7 @@ public extension Date {
     public var longTimeString: String { return Date.longTimeFormatter.string(from:self) }
     /// Returns time components as full string
     public var fullTimeString: String { return Date.fullTimeFormatter.string(from:self) }
-    
+
     /// Returns date and time components as short string
     public var shortString: String { return "\(self.shortDateString) \(self.shortTimeString)" }
     /// Returns date and time components as medium string
@@ -56,3 +72,4 @@ public extension Date {
     /// Returns date and time components as full string
     public var fullString: String { return "\(self.fullDateString) \(self.fullTimeString)" }
 }
+
