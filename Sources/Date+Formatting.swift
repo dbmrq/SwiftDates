@@ -11,34 +11,42 @@ public extension Date {
         return $0 }(DateFormatter())
     /// Returns a short style date formatter
     public static var shortDateFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.dateStyle = .short; return $0
     }(DateFormatter())
     /// Returns a medium style date formatter
     public static var mediumDateFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.dateStyle = .medium; return $0
     }(DateFormatter())
     /// Returns a long style date formatter
     public static var longDateFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.dateStyle = .long; return $0
     }(DateFormatter())
     /// Returns a full style date formatter
     public static var fullDateFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.dateStyle = .full; return $0
     }(DateFormatter())
     /// Returns a short style time formatter
     public static var shortTimeFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.timeStyle = .short; return $0
     }(DateFormatter())
     /// Returns a medium style time formatter
     public static var mediumTimeFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.timeStyle = .medium; return $0
     }(DateFormatter())
     /// Returns a long style time formatter
     public static var longTimeFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.timeStyle = .long; return $0
     }(DateFormatter())
     /// Returns a full style time formatter
     public static var fullTimeFormatter: DateFormatter = {
+        $0.locale = Locale.autoupdatingCurrent
         $0.timeStyle = .full; return $0
     }(DateFormatter())
 

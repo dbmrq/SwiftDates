@@ -2,6 +2,55 @@ import Foundation
 
 // Acknowlegements in Date+Utilities.swift
 
+// Operators to compare whole days {{{1
+
+infix operator =~: ComparisonPrecedence // If you have already defined these operators somewhere
+infix operator !~: ComparisonPrecedence // else, comment them out here.
+infix operator >~: ComparisonPrecedence
+infix operator <~: ComparisonPrecedence
+infix operator >=~: ComparisonPrecedence
+infix operator <=~: ComparisonPrecedence
+
+func =~ (left: Date?, right: Date?) -> Bool {
+    if left == nil && right == nil { return true }
+    guard let left = left, let right = right else { return false }
+    return Date.sameDate(left, right)
+}
+
+func !~ (left: Date?, right: Date?) -> Bool {
+    if left == nil && right == nil { return false }
+    guard let left = left, let right = right else { return true }
+    return !Date.sameDate(left, right)
+}
+
+func >~ (left: Date?, right: Date?) -> Bool {
+    guard let left = left else { return false }
+    guard let right = right else { return true }
+    return left.startOfDay > right.startOfDay
+}
+
+func <~ (left: Date?, right: Date?) -> Bool {
+    guard let right = right else { return false }
+    guard let left = left else { return true }
+    return left.startOfDay < right.startOfDay
+}
+
+func >=~ (left: Date?, right: Date?) -> Bool {
+    if left == nil && right == nil { return true }
+    guard let right = right else { return true }
+    guard let left = left else { return false }
+    return left.startOfDay >= right.startOfDay
+}
+
+func <=~ (left: Date?, right: Date?) -> Bool {
+    if left == nil && right == nil { return true }
+    guard let right = right else { return false }
+    guard let left = left else { return true }
+    return left.startOfDay <= right.startOfDay
+}
+
+// }}}1
+
 /// Standard interval reference
 /// Not meant to replace `offset(_: Calendar.Component, _: Int)` to offset dates
 public extension Date {// {{{1
